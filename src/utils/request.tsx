@@ -4,6 +4,8 @@ import axios, {
   AxiosRequestConfig,
   AxiosResponse,
   AxiosError,
+  CancelTokenStatic,
+  CancelTokenSource,
 } from 'axios'
 interface HttpRequest {
   baseURL: string
@@ -17,10 +19,12 @@ interface ResponseCustom<T> {
 interface CustomConfig extends AxiosRequestConfig {
   headers?: any
 }
+
+const cancelRequest: CancelTokenSource[] = []
 class HttpRequest {
   constructor() {
     this.baseURL = config.baseURL //默认地址
-    this.timeout = 3000 // 3s后请求超时
+    this.timeout = 6000 // 3s后请求超时
   }
   private setInterceptors(instance: AxiosInstance) {
     //创建单独的拦截器
@@ -47,29 +51,33 @@ class HttpRequest {
       },
       (err: AxiosError) => {
         // 单独处理其他的状态码异常
-        switch (err.response?.status) {
-          case 401:
-            console.log(err)
-            break
-          default:
-            break
+        if (axios.isCancel(err)) {
+          console.log('Request canceled', err)
+        } else {
+          switch (err.response?.status) {
+            case 401:
+              console.log(err)
+              break
+            default:
+              break
+          }
         }
         return Promise.reject(err)
       }
     )
   }
-
   private mergeOptions(options: CustomConfig) {
     return { baseURL: this.baseURL, timeout: this.timeout, ...options }
   }
-
   private request<R>(options: CustomConfig): Promise<ResponseCustom<R>> {
     const instance: AxiosInstance = axios.create() // 创建axios实例
     this.setInterceptors(instance) //创建单独的拦截器
     const opts = this.mergeOptions(options) //合并选项
-    return instance.request<R>(opts) //单独拦截器的配置项
+    const cancelToken: CancelTokenStatic = axios.CancelToken //使用 cancel token 取消请求
+    const source: CancelTokenSource = cancelToken.source()
+    cancelRequest.push(source)
+    return instance.request<R>({ ...opts, cancelToken: source.token }) //单独拦截器的配置项
   }
-
   public get<R>(
     url: string,
     config: CustomConfig = {}
@@ -91,4 +99,8 @@ class HttpRequest {
   }
 }
 
+export const cancelRequestHandle = () => {
+  cancelRequest.forEach((item) => item.cancel())
+  cancelRequest.length = 0
+}
 export default new HttpRequest()

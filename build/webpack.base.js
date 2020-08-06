@@ -18,11 +18,12 @@ module.exports = {
       '@': path.join(__dirname, '../src'),
     },
   },
+
   module: {
     rules: [
       {
         exclude: /node_modules/,
-        test: /\.(j|t)sx?/,
+        test: /\.(j|t)sx?$/,
         use: [
           'cache-loader',
           {
@@ -43,7 +44,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, '../src/index.html'),
+      template: path.join(__dirname, '../src/public/index.html'),
       filename: 'index.html',
       minify: !process.env.NODE_ENV === 'production' && {
         removeAttributeQuotes: true,
