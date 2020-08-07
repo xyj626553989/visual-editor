@@ -1,3 +1,3 @@
 export interface HomeState {
-  number: number
+  number: number;
 }

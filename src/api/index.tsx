@@ -1,12 +1,12 @@
-import axios from '@/utils/request'
+import axios from "@/utils/request";
 interface UserInfo {
-  name: string
+  name: string;
 }
 export const getUserInfo = (): Promise<UserInfo> =>
   axios
-    .get<UserInfo>('/api/user', {
+    .get<UserInfo>("/api/user", {
       params: {
-        uid: '1111',
+        uid: "1111",
       },
     })
-    .then((res) => res.data)
+    .then((res) => res.data);

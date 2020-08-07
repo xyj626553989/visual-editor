@@ -1,13 +1,13 @@
-import { lazy } from 'react'
-import { RouterItem } from './'
+import { lazy } from "react";
+import { RouterItem } from "./";
 const users: RouterItem[] = [
   {
-    path: '/user',
+    path: "/user",
     protect: false,
-    component: lazy(() => import('@/pages/User')),
-    name: '用户中心',
+    component: lazy(() => import("@/pages/User")),
+    name: "用户中心",
     strict: false,
   },
-]
+];
 
-export default users
+export default users;
