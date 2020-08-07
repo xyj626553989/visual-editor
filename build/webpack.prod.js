@@ -1,5 +1,4 @@
 const { merge } = require("webpack-merge");
-const path = require("path");
 const base = require("./webpack.base");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
@@ -104,11 +103,11 @@ module.exports = (env, argv) => {
         },
         plugins: [
             new MiniCssExtractPlugin({
-                filename: "[name].[contenthash].css",
+                filename: "css/[name].[contenthash].css",
                 publicPath: "../",
             }),
             new CleanWebpackPlugin({
-                cleanOnceBeforeBuildPatterns: "**/*",
+                cleanOnceBeforeBuildPatterns: ["**/*"],
             }),
             new BundleAnalyzerPlugin(),
         ],

@@ -6,18 +6,17 @@ import home, { HomeState } from "./home.reducer";
 import login, { LoginState } from "./login.reducer";
 import produce from "immer";
 export interface CombinedState {
-  home: HomeState;
-  router: RouterState;
-  login: LoginState;
+    home: HomeState;
+    router: RouterState;
+    login: LoginState;
 }
-
 const createRootReducer = (history: History) => {
-  const reducers: ReducersMapObject<CombinedState, any> = {
-    router: connectRouter(history),
-    home,
-    login,
-  };
-  const reducer: Reducer<CombinedState> = combineReducers(produce, reducers);
-  return reducer;
+    const reducers: ReducersMapObject<CombinedState, any> = {
+        router: connectRouter(history),
+        home,
+        login,
+    };
+    const reducer: Reducer<CombinedState> = combineReducers(produce, reducers);
+    return reducer;
 };
 export default createRootReducer;
