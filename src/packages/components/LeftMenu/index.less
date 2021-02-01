@@ -1,0 +1,30 @@
+.left-menu {
+
+    // width: 220px;
+    background-color: #fff;
+    flex:0 0 220px;
+    height: 100%;
+    .left-menu-item {
+        width: 100%;
+        height: 120px;
+        padding: 20px;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+        border: 1px solid #eee;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .left-menu-item-mask {
+            position: absolute;
+            top:0;
+            left: 0;
+            background-color: #77d9ff;
+            width: 80px;
+            height: 40px;
+            z-index: 1;
+            color: #fff;
+        }
+    }
+}

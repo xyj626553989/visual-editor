@@ -1,0 +1,28 @@
+.editor {
+    flex: 1;
+    box-sizing: border-box;
+    padding-top: 60px;
+}
+
+.editor-container {
+    background-color: #fff;
+    margin: 50px auto;
+    position: relative;
+
+    .component-item {
+        position: absolute;
+
+        &.component-item-foucs {
+            &::after {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                content: "";
+                border: 1px solid rgb(75, 253, 229)
+            }
+        }
+
+    }
+}

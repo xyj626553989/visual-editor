@@ -1,0 +1,5 @@
+.right-attr {
+  background-color: #fff;
+  flex: 0 0 220px;
+  height: 100%;
+}

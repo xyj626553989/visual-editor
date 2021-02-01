@@ -1,0 +1,10 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+.visual-editor {
+  background-color: #ebebeb;
+  height: 100vh;
+  display: flex;
+}
