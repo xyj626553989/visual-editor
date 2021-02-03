@@ -15,7 +15,7 @@ export interface ComponentProps {
   height: number;
   left: number;
   top: number;
-  foucs?: boolean;
+  focus?: boolean;
   style?: CSSProperties;
 }
 

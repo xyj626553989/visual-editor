@@ -45,7 +45,7 @@ const Editor: EditorProps = (props) => {
       height: 40,
       left: e.nativeEvent.offsetX,
       top: e.nativeEvent.offsetY,
-      foucs: false,
+      focus: false,
     };
     setComponentData(() => {
       const data: ComponentProps[] = [...componentData, component];
@@ -63,9 +63,9 @@ const Editor: EditorProps = (props) => {
     e.stopPropagation();
     const tempData = componentData.map((item) => {
       if (component.id === item.id) {
-        item.foucs = true;
+        item.focus = true;
       } else {
-        item.foucs = false;
+        item.focus = false;
       }
       return item;
     });
@@ -85,7 +85,7 @@ const Editor: EditorProps = (props) => {
       const moveY = e.clientY - dragState.startY;
       moveComponent(moveX, moveY);
     };
-    //yidong
+    //移动
     const moveComponent = (moveX: number, moveY: number) => {
       let left = component.left + moveX;
       let top = component.top + moveY;
@@ -131,7 +131,7 @@ const Editor: EditorProps = (props) => {
   };
   const containerOnMouseDown = () => {
     const tempData = componentData.map((item) => {
-      item.foucs = false;
+      item.focus = false;
       return item;
     });
     setComponentData(tempData);

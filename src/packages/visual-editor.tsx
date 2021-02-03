@@ -5,16 +5,18 @@ import TopBar from "./components/TopBar";
 import Editor from "./components/Editor";
 import { Container, ComponentProps, SnapshotData } from "./types/visual-editor";
 import componentList from "./registerComponent";
-
+import useCommand from "./snapshotData";
 import "./visual-editor.less";
 const initContainer: Container = {
-  width: 1000,
-  height: 600,
+  width: 1200,
+  height: 900,
 };
 
 const VisualEditor = () => {
   const [container] = useState<Container>(initContainer);
   const [componentData, setComponentData] = useState<ComponentProps[]>([]);
+  const commander = useCommand(componentData, setComponentData);
+  console.log(commander);
   const snapshotData = useMemo<SnapshotData>(
     () => ({ index: -1, components: [] }),
     []
@@ -22,7 +24,6 @@ const VisualEditor = () => {
   //撤销
   const undo = () => {
     if (snapshotData.index >= 0) {
-      console.log(snapshotData.index);
       const data = snapshotData.components[--snapshotData.index];
       if (data) {
         setComponentData(data);
