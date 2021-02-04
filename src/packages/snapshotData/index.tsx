@@ -8,8 +8,16 @@ const useCommand = (
   const { register, commander } = command();
 
   register("delete", () => {
-    console.log(componentData, setComponentData);
-    // const newComponentData = componentData.filter()
+    const newComponentData: ComponentProps[] = [];
+    const before: ComponentProps[] = [];
+    componentData.forEach((item) => {
+      if (!item.focus) {
+        newComponentData.push(item);
+      } else {
+        before.push(item);
+      }
+    });
+    setComponentData(newComponentData);
     return {
       undo: () => {
         console.log("-----");

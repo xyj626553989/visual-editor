@@ -1,4 +1,4 @@
-import React, { CSSProperties, FC } from "react";
+import React, { CSSProperties, FC, MouseEvent } from "react";
 import classnames from "classnames";
 import { ComponentProps } from "../../types/visual-editor";
 import componentList from "../../registerComponent";
@@ -17,7 +17,7 @@ const ComponentItem: FC<Props> = (props) => {
     top: component.top - component.height / 2,
   };
   const classes = classnames("component-item", {
-    "component-item-foucs": component.foucs,
+    "component-item-focus": component.focus,
   });
   const renderComponent = () => {
     const item = componentList.find((item) => item.type === component.type);

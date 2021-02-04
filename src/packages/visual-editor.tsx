@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import LeftMenu from "./components/LeftMenu";
 import RightAttr from "./components/RightAttr";
 import TopBar from "./components/TopBar";
@@ -6,12 +6,13 @@ import Editor from "./components/Editor";
 import { Container, ComponentProps, SnapshotData } from "./types/visual-editor";
 import componentList from "./registerComponent";
 import useCommand from "./snapshotData";
+import Keyboard from "./Keyboard/Keyboard";
 import "./visual-editor.less";
 const initContainer: Container = {
   width: 1200,
   height: 900,
 };
-
+const keyboard = new Keyboard();
 const VisualEditor = () => {
   const [container] = useState<Container>(initContainer);
   const [componentData, setComponentData] = useState<ComponentProps[]>([]);
@@ -21,6 +22,10 @@ const VisualEditor = () => {
     () => ({ index: -1, components: [] }),
     []
   );
+  useEffect(() => {
+    keyboard.register();
+    return () => keyboard.remove();
+  }, []);
   //撤销
   const undo = () => {
     if (snapshotData.index >= 0) {
@@ -41,14 +46,16 @@ const VisualEditor = () => {
       }
     }
   };
+  //清除所有
   const clearAll = () => {
     if (componentData.length) {
       setComponentData([]);
       snapshotData.index++;
     }
   };
+  //删除
   const deleteItem = () => {
-    const temp = componentData.filter((item) => !item.foucs);
+    const temp = componentData.filter((item) => !item.focus);
     if (temp.length !== componentData.length) {
       snapshotData.index++;
       snapshotData.components.push(componentData);

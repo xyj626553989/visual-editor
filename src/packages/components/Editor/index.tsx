@@ -20,7 +20,6 @@ interface Props {
   setComponentData: Dispatch<SetStateAction<ComponentProps[]>>;
 }
 type EditorProps = FC<Props>;
-
 const Editor: EditorProps = (props) => {
   const { container, componentData, setComponentData, snapshotData } = props;
   const styles: CSSProperties = {
@@ -59,7 +58,7 @@ const Editor: EditorProps = (props) => {
   };
 
   //鼠标按下
-  const onMouseDown = (e: MouseEvent, component: ComponentProps) => {
+  const onMouseDown = (e: React.MouseEvent, component: ComponentProps) => {
     e.stopPropagation();
     const tempData = componentData.map((item) => {
       if (component.id === item.id) {
@@ -73,7 +72,7 @@ const Editor: EditorProps = (props) => {
     setComponentData(tempData);
   };
 
-  const addListener = (e: MouseEvent, component: ComponentProps) => {
+  const addListener = (e: React.MouseEvent, component: ComponentProps) => {
     const dragState = {
       startX: e.clientX,
       startY: e.clientY,
@@ -121,14 +120,13 @@ const Editor: EditorProps = (props) => {
         snapshotData.index++;
         snapshotData.components.push(tempData);
       }
-
       document.removeEventListener("mousemove", mousemove);
       document.removeEventListener("mouseup", mouseup);
     };
-
     document.addEventListener("mousemove", mousemove);
     document.addEventListener("mouseup", mouseup);
   };
+
   const containerOnMouseDown = () => {
     const tempData = componentData.map((item) => {
       item.focus = false;
@@ -150,7 +148,7 @@ const Editor: EditorProps = (props) => {
       >
         {componentData.map((item) => (
           <ComponentItem
-            onMouseDown={(e: MouseEvent) => onMouseDown(e, item)}
+            onMouseDown={(e: React.MouseEvent) => onMouseDown(e, item)}
             key={item.id}
             component={item}
           />
